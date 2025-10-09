@@ -25,6 +25,8 @@ import {
   CurrencyDollar,
   UserCircle,
 } from "@phosphor-icons/react";
+import YandexTranslateWidget from "../../components/YandexTranslateWidget";
+
 
 import HeroBackgroundImage from "../../assets/herobackgroundImage.webp";
 
@@ -217,6 +219,10 @@ const Homedesktop = () => {
           </MotionBox>
         </Box>
       </Container>
+
+       <Box sx={{ marginTop: -8, marginLeft: 10 }}>
+        <YandexTranslateWidget />
+      </Box>
     </Box>
   );
 };

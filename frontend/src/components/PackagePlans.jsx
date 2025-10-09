@@ -40,7 +40,7 @@ const accounts = [
   },
   {
     title: "SILVER ACCOUNT",
-    deposit: "Minimum Deposit $10,000",
+    deposit: "Minimum Deposit $3,000",
     features: [
       "Spreads from 2.2 pips",
       "Leverage 1:700",
@@ -54,7 +54,7 @@ const accounts = [
   },
   {
     title: "GOLD ACCOUNT",
-    deposit: "Minimum Deposit $30,000",
+    deposit: "Minimum Deposit $6,000",
     features: [
       "Spreads from 1.5 pips",
       "Leverage 1:1000",
@@ -68,7 +68,7 @@ const accounts = [
   },
   {
     title: "DIAMOND ACCOUNT",
-    deposit: "Minimum Deposit $50,000",
+    deposit: "Minimum Deposit $20,000",
     features: [
       "Spreads from 1.0 pips",
       "Leverage 1:3000",
@@ -82,7 +82,7 @@ const accounts = [
   },
   {
     title: "PEARL ACCOUNT",
-    deposit: "Minimum Deposit $100,000",
+    deposit: "Minimum Deposit $50,000",
     features: [
       "Spreads from 0.5 pips",
       "Leverage 1:5000",

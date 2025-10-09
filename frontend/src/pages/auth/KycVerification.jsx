@@ -642,10 +642,11 @@ const KycVerification = ({
                             onChange={handleChange}
                             sx={{ borderRadius: 2 }}
                           >
-                            <MenuItem value={"STARTER"}>STARTER</MenuItem>
+                            {/* <MenuItem value={"STARTER"}>STARTER</MenuItem> */}
                             <MenuItem value={"BRONZE"}>BRONZE</MenuItem>
                             <MenuItem value={"SILVER"}>SILVER</MenuItem>
                             <MenuItem value={"GOLD"}>GOLD</MenuItem>
+                            <MenuItem value={"DIAMOND"}>DIAMOND</MenuItem>
                             <MenuItem value={"PLATINUM"}>PLATINUM</MenuItem>
                           </Select>
 
