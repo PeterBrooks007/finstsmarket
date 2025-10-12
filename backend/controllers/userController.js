@@ -306,7 +306,6 @@ const verifyOTP = asyncHandler(async (req, res) => {
 
 //kycSetup
 const kycSetup = asyncHandler(async (req, res) => {
-  
   console.log(req.body);
 
   const errors = validationResult(req);
@@ -405,62 +404,65 @@ const kycSetup = asyncHandler(async (req, res) => {
     // Specify the folder name where you want to upload the image
     const folderName = "profile_photos";
 
-    // Upload the image to Cloudinary
-    const result = await cloudinary.uploader
-      .upload_stream(
-        { resource_type: "auto", folder: folderName },
-        async (error, result) => {
-          if (error) {
-            console.log("cloudinary error1", error);
-            return res.status(500).json({ message: err.message || "Image upload failed"  });
+    try {
+      // Upload the image to Cloudinary
+      const result = await cloudinary.uploader
+        .upload_stream(
+          { resource_type: "auto", folder: folderName },
+          async (error, result) => {
+            if (error) {
+              return res
+                .status(500)
+                .json({ message: err.message || "Image upload failed" });
+            }
+
+            if (user) {
+              const {
+                address,
+                phone,
+                accounttype,
+                package,
+                currency,
+                photo,
+                pin,
+              } = user;
+
+              const updateAddress = {
+                address: req.body.userData.address,
+                state: req.body.userData.state,
+                country: req.body.userData.country.label,
+                countryFlag: req.body.userData.country.code.toLowerCase(),
+              };
+
+              const updateCurrency = {
+                code: req.body.userData.currency.code,
+                flag: req.body.userData.currency.flag,
+              };
+
+              user.address = updateAddress || address;
+              user.phone = req.body.userData.phone || phone;
+              user.accounttype = req.body.userData.accounttype || accounttype;
+              user.package = req.body.userData.package || package;
+              user.currency = updateCurrency || currency;
+              user.pin = req.body.userData.pin || pin;
+              user.photo = result.secure_url || photo;
+
+              const updatedUser = await user.save({
+                new: true,
+                validateModifiedOnly: true,
+              });
+
+              return res.status(200).json(updatedUser);
+            } else {
+              res.status(404);
+              throw new Error("User not found");
+            }
           }
-
-          if (user) {
-            const {
-              address,
-              phone,
-              accounttype,
-              package,
-              currency,
-              photo,
-              pin,
-            } = user;
-
-            const updateAddress = {
-              address: req.body.userData.address,
-              state: req.body.userData.state,
-              country: req.body.userData.country.label,
-              countryFlag: req.body.userData.country.code.toLowerCase(),
-            };
-
-            const updateCurrency = {
-              code: req.body.userData.currency.code,
-              flag: req.body.userData.currency.flag,
-            };
-
-            user.address = updateAddress || address;
-            user.phone = req.body.userData.phone || phone;
-            user.accounttype = req.body.userData.accounttype || accounttype;
-            user.package = req.body.userData.package || package;
-            user.currency = updateCurrency || currency;
-            user.pin = req.body.userData.pin || pin;
-            user.photo = result.secure_url || photo;
-
-            const updatedUser = await user.save({
-              new: true,
-              validateModifiedOnly: true,
-            });
-
-            return res.status(200).json(updatedUser);
-          } else {
-            console.log("cloudinary error2", error);
-
-            res.status(404);
-            throw new Error("User not found");
-          }
-        }
-      )
-      .end(compressedImageBuffer); // Use the file buffer for the upload
+        )
+        .end(compressedImageBuffer); // Use the file buffer for the upload
+    } catch (error) {
+      console.log("cloudinary error3", error);
+    }
   } catch (err) {
     console.log("cloudinary error3", err);
     res.status(500).json({ message: err.message || "Failed to upload image" });
