@@ -419,6 +419,9 @@ const kycSetup = asyncHandler(async (req, res) => {
 
     let mediaUrl = "";
 
+    console.log(`going to try block now: ${file.size} bytes`);
+
+
     // Upload media to Cloudinary if provided
     try {
 
@@ -449,6 +452,9 @@ const kycSetup = asyncHandler(async (req, res) => {
       console.error("Cloudinary upload error:", uploadError);
       return res.status(400).json({ error: "Failed to upload media" });
     }
+
+        console.log(`going to try block didnt work: ${file.size} bytes`);
+
 
     // --- 4. DATABASE UPDATE (ONLY after successful upload) ---
     const { address, phone, accounttype, package, currency, photo, pin } = user;
