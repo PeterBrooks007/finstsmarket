@@ -25,7 +25,7 @@ import { upgradeAccount } from "../redux/features/auth/authSlice";
 
 const accounts = [
   {
-    title: "BRONZE ACCOUNT",
+    title: "STARTER ACCOUNT",
     deposit: "Minimum Deposit $1,000",
     features: [
       "Spreads from 3.3 pips",
@@ -39,8 +39,22 @@ const accounts = [
     href: "/auth/register",
   },
   {
-    title: "SILVER ACCOUNT",
+    title: "BASIC ACCOUNT",
     deposit: "Minimum Deposit $3,000",
+    features: [
+      "Spreads from 3.3 pips",
+      "Leverage 1:500",
+      "Live Chart Support",
+      "All Available Platforms",
+    ],
+    headerBg: "#9c27b0", // Customize header background color
+    grid: { xs: 12, sm: 6, md: 4 },
+    buttonText: "OPEN AN ACCOUNT",
+    href: "/auth/register",
+  },
+  {
+    title: "BRONZE ACCOUNT",
+    deposit: "Minimum Deposit $6,000",
     features: [
       "Spreads from 2.2 pips",
       "Leverage 1:700",
@@ -53,8 +67,8 @@ const accounts = [
     href: "/auth/register",
   },
   {
-    title: "GOLD ACCOUNT",
-    deposit: "Minimum Deposit $6,000",
+    title: "SILVER ACCOUNT",
+    deposit: "Minimum Deposit $20,000",
     features: [
       "Spreads from 1.5 pips",
       "Leverage 1:1000",
@@ -67,8 +81,8 @@ const accounts = [
     href: "/auth/register",
   },
   {
-    title: "DIAMOND ACCOUNT",
-    deposit: "Minimum Deposit $20,000",
+    title: "GOLD ACCOUNT",
+    deposit: "Minimum Deposit $50,000",
     features: [
       "Spreads from 1.0 pips",
       "Leverage 1:3000",
@@ -76,13 +90,13 @@ const accounts = [
       "All Available Platforms",
     ],
     headerBg: "#ff5722",
-    grid: { xs: 12, sm: 6, md: 6 },
+    grid: { xs: 12, sm: 6, md: 4 },
     buttonText: "OPEN AN ACCOUNT",
     href: "/auth/register",
   },
   {
-    title: "PEARL ACCOUNT",
-    deposit: "Minimum Deposit $50,000",
+    title: "PLATINUM ACCOUNT",
+    deposit: "Minimum Deposit $100,000",
     features: [
       "Spreads from 0.5 pips",
       "Leverage 1:5000",
@@ -93,7 +107,7 @@ const accounts = [
       "Market Update Emails",
     ],
     headerBg: "#9c27b0",
-    grid: { xs: 12, sm: 6, md: 6 },
+    grid: { xs: 12, sm: 6, md: 4 },
     buttonText: "OPEN AN ACCOUNT",
     href: "/auth/register",
   },
