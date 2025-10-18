@@ -34,7 +34,6 @@ import LoadingScreen from "../../components/LoadingScreen";
 import { RESET_WITHDRAWAL } from "../../redux/features/withdrawal/withdrawalSlice";
 import { RESET_DEPOSIT } from "../../redux/features/deposit/depositSlice";
 import { useNavigate } from "react-router-dom";
-import LoadingScreen2 from "../../components/LoadingScreen2";
 
 const MotionBox = motion(Box);
 
@@ -272,7 +271,7 @@ const KycVerification = ({
   return (
     <>
       {isSemiLoading ? (
-        <LoadingScreen2 />
+        <LoadingScreen />
       ) : (
         <Container maxWidth="md">
           <Stack spacing={1}>

@@ -19,7 +19,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { RESET_AUTH } from "../../redux/features/auth/authSlice";
 import LoadingScreen from "../../components/LoadingScreen";
 import AuthMobileHeader from "./AuthMobileHeader";
-import LoadingScreen2 from "../../components/LoadingScreen2";
 
 const steps = ["Personal Details", "Identity Verification", "Under Review"];
 
@@ -113,7 +112,7 @@ export default function IdVerificationStepper() {
   return (
     <>
       {isLoading || !user ? (
-        <LoadingScreen2 />
+        <LoadingScreen />
       ) : (
         <Container maxWidth="md">
           <Box
