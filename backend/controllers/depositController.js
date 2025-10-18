@@ -11,6 +11,9 @@ const {
 } = require("../emailTemplates/adminGeneralEmailTemplate");
 const sendEmail = require("../utils/sendEmail");
 const Notifications = require("../models/notificationsModel");
+const {
+  userGeneralEmailTemplate,
+} = require("../emailTemplates/userGeneralEmailTemplate");
 
 //Deposit Fund
 const depositFund = asyncHandler(async (req, res) => {
@@ -273,93 +276,117 @@ const getAllPendingDepositRequest = asyncHandler(async (req, res) => {
 });
 
 //Admin Approve Deposit Request
-const approveDepositRequest = asyncHandler(async (req, res) => {
+export const approveDepositRequest = asyncHandler(async (req, res) => {
   const requestId = req.params.id;
-  const depositRequest = await Deposit.findById(requestId).select("-password");
 
+  // Fetch deposit and populate user info
+  const depositRequest = await Deposit.findById(requestId)
+    .populate("userId") // populate user info for email + notifications
+    .select("-password");
+
+  // Validation check
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    // console.log(errors.array()); // Log all errors for debugging
     res.status(400);
     throw new Error(errors.array()[0].msg);
   }
 
+  if (!depositRequest) {
+    res.status(404);
+    throw new Error("Deposit Request not found");
+  }
+
+  const user = depositRequest.userId;
+
+  if (!user) {
+    res.status(404);
+    throw new Error("Associated user not found for this deposit request");
+  }
+
+  // Handle approval logic
   if (
     req.body.comment === "ApproveWithBalance" &&
     req.body.typeOfDeposit === "Trade"
   ) {
-    //Add to user account balance
-    await User.findOneAndUpdate(
-      { _id: req.body.userId },
-      {
-        $inc: { balance: req.body.amount, totalDeposit: req.body.amount },
-      }
-    );
+    // Add to user's account and total deposit
+    await User.findByIdAndUpdate(user._id, {
+      $inc: { balance: req.body.amount, totalDeposit: req.body.amount },
+    });
   }
 
   if (
     req.body.comment === "ApproveWithBalance" &&
     req.body.typeOfDeposit === "Wallet"
   ) {
-    await User.findOneAndUpdate(
-      { _id: req.body.userId },
-      {
-        $inc: { totalDeposit: req.body.amount },
-      }
-    );
+    // Only update total deposit
+    await User.findByIdAndUpdate(user._id, {
+      $inc: { totalDeposit: req.body.amount },
+    });
 
-    // // Update the user's Bitcoin asset balance
+    // If you want to also update wallet assets later, uncomment this:
     // await User.updateOne(
-    //   { _id: req.body.userId, 'assets.symbol': 'BTC' }, // Match the user and the asset with symbol 'BTC'
-    //   {
-    //     $inc: { 'assets.$.balance': req.body.amount }, // Use positional operator $ to increment the balance of the matched asset
-    //   }
+    //   { _id: user._id, "assets.symbol": "BTC" },
+    //   { $inc: { "assets.$.balance": req.body.amount } }
     // );
   }
 
-  if (depositRequest) {
-    const { typeOfDeposit, method, amount, status, depositProof } =
-      depositRequest;
+  // Update deposit details
+  const { typeOfDeposit, method, amount, status, depositProof } =
+    depositRequest;
 
-    depositRequest.typeOfDeposit = req.body.typeOfDeposit || typeOfDeposit;
-    depositRequest.method = req.body.method || method;
-    depositRequest.amount = req.body.amount || amount;
-    depositRequest.status = req.body.status || status;
-    depositRequest.depositProof = req.body.depositProof || depositProof;
+  depositRequest.typeOfDeposit = req.body.typeOfDeposit || typeOfDeposit;
+  depositRequest.method = req.body.method || method;
+  depositRequest.amount = req.body.amount || amount;
+  depositRequest.status = req.body.status || status;
+  depositRequest.depositProof = req.body.depositProof || depositProof;
 
-    const updatedDepositRequest = await depositRequest.save();
+  const updatedDepositRequest = await depositRequest.save();
 
-    if (updatedDepositRequest) {
-      //send deposit approval notification message object to user
-      const searchWord = "Support Team";
-      const notificationObject = {
-        to: `This user`,
-        from: searchWord,
-        notificationIcon: "CurrencyCircleDollar",
-        title: "Deposit Request",
-        message: `Your deposit request of ${amount} has been updated. Please check your deposit history.`,
-        route: "/dashboard",
-      };
-
-      // Add the Notifications
-      await Notifications.updateOne(
-        { userId: depositRequest.userId },
-        { $push: { notifications: notificationObject } },
-        { upsert: true } // Creates a new document if recipient doesn't exist
-      );
-
-      const AllPendingDepositRequest = await Deposit.find({ status: "PENDING" })
-        .sort("-createdAt")
-        .populate("userId");
-      res.status(200).json(AllPendingDepositRequest);
-    } else {
-      res.status(404);
-      throw new Error("An Error Occur");
-    }
-  } else {
-    res.status(404);
-    throw new Error("Deposit Request not found");
+  if (!updatedDepositRequest) {
+    res.status(500);
+    throw new Error("An error occurred while updating the deposit request");
   }
+
+  // Create notification
+  const searchWord = "Support Team";
+  const notificationObject = {
+    to: `This user`,
+    from: searchWord,
+    notificationIcon: "CurrencyCircleDollar",
+    title: "Deposit Request",
+    message: `Your deposit request of ${amount} has been updated. Please check your deposit history.`,
+    route: "/dashboard",
+  };
+
+  // Store notification
+  await Notifications.updateOne(
+    { userId: user._id },
+    { $push: { notifications: notificationObject } },
+    { upsert: true } // create a new notification record if not existing
+  );
+
+  // Send email notification
+  try {
+    const introMessage = `Your deposit request of ${amount} has been updated. Please check your deposit history.`;
+    const subject = "Deposit Approval Status - corexcapital";
+    const send_to = user.email;
+    const template = userGeneralEmailTemplate(
+      `${user.firstname} ${user.lastname}`,
+      introMessage
+    );
+    const reply_to = process.env.EMAIL_USER;
+
+    await sendEmail(subject, send_to, template, reply_to);
+  } catch (error) {
+    console.error("Failed to send email:", error.message);
+  }
+
+  // Return all pending deposit requests
+  const AllPendingDepositRequest = await Deposit.find({ status: "PENDING" })
+    .sort("-createdAt")
+    .populate("userId");
+
+  res.status(200).json(AllPendingDepositRequest);
 });
 
 // Admin Delete Deposit Request

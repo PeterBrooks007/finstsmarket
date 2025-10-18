@@ -275,7 +275,8 @@ const DepositDrawer = ({
 
   const priceData = Array.isArray(allCoins)
     ? allCoins.find(
-        (coin) => coin?.symbol === walletAddress?.walletSymbol?.toUpperCase().trim()
+        (coin) =>
+          coin?.symbol === walletAddress?.walletSymbol?.toUpperCase().trim()
       )
     : null; // Use null instead of an empty array
 
@@ -883,7 +884,10 @@ const DepositDrawer = ({
                         name="amount"
                         value={amount}
                         onChange={handleInputChange}
-                        placeholder="$0.00"
+                        placeholder={Intl.NumberFormat("en-US", {
+                          style: "currency",
+                          currency: user?.currency?.code,
+                        }).format(0)}
                         sx={{
                           textAlign: "center",
                           fontWeight: "bold", // Bold text for input
@@ -1170,10 +1174,13 @@ const DepositDrawer = ({
                       variant="contained"
                       disabled={isRequestLoading && true}
                       sx={{ borderRadius: "10px", padding: "10px" }}
-                      
-                    > {
-                      isRequestLoading ? (  <CircularProgress size={24} />) : "Make Request"  
-                    }
+                    >
+                      {" "}
+                      {isRequestLoading ? (
+                        <CircularProgress size={24} />
+                      ) : (
+                        "Make Request"
+                      )}
                     </Button>
                   </Stack>
                 </Stack>

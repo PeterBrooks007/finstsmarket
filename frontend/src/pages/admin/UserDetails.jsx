@@ -88,7 +88,7 @@ const UserDetails = () => {
     const priceData = allCoins?.find(
       (price) => price?.symbol === asset?.symbol?.toUpperCase()
     );
-   
+
     if (priceData) {
       const totalValue =
         asset.balance * priceData?.quotes?.[singleUser?.currency?.code]?.price;
@@ -211,7 +211,12 @@ const UserDetails = () => {
                   borderRadius={"10px"}
                 >
                   <Stack direction={"row"} spacing={1} alignItems={"center"}>
-                    <CurrencyDollar size={60} color={ theme.palette.mode === "light" ? "green" : "springgreen"} />
+                    <CurrencyDollar
+                      size={60}
+                      color={
+                        theme.palette.mode === "light" ? "green" : "springgreen"
+                      }
+                    />
 
                     <Stack>
                       <Typography variant="body1" fontWeight={500}>
@@ -373,13 +378,15 @@ const UserDetails = () => {
                       size="large"
                       icon={
                         singleUser?.isOnline ? (
-                          <CheckCircle color={singleUser?.isOnline
-                            ? undefined
-                            : "white"} size={20} />
+                          <CheckCircle
+                            color={singleUser?.isOnline ? undefined : "white"}
+                            size={20}
+                          />
                         ) : (
-                          <XCircle color={singleUser?.isOnline
-                            ? undefined
-                            : "white"}  size={20} />
+                          <XCircle
+                            color={singleUser?.isOnline ? undefined : "white"}
+                            size={20}
+                          />
                         )
                       }
                       label={singleUser?.isOnline ? "Online" : "Offline"}
@@ -476,28 +483,28 @@ const UserDetails = () => {
                   borderRadius={2}
                 >
                   <Stack direction={"row"} spacing={1} alignItems={"center"}>
-                  <Typography
-                    variant="body1"
-                    fontWeight={500}
-                    sx={{
-                      hyphens: "auto", // Enables automatic hyphenation
-                      overflowWrap: "break-word",
-                      wordBreak: "break-word",
-                    }}
-                  >
-                    <GlobeHemisphereEast /> Country:{" "}
-                    {singleUser?.address?.country}
-                  </Typography>
-                  <Avatar
-                        src={`https://flagcdn.com/w80/${singleUser?.address?.countryFlag}.png`}
-                        alt="countryflag"
-                        sx={{
-                          width: "20px",
-                          height: "20px",
-                          borderRadius: "50%",
-                        }}
-                      />
-                      </Stack>
+                    <Typography
+                      variant="body1"
+                      fontWeight={500}
+                      sx={{
+                        hyphens: "auto", // Enables automatic hyphenation
+                        overflowWrap: "break-word",
+                        wordBreak: "break-word",
+                      }}
+                    >
+                      <GlobeHemisphereEast /> Country:{" "}
+                      {singleUser?.address?.country}
+                    </Typography>
+                    <Avatar
+                      src={`https://flagcdn.com/w80/${singleUser?.address?.countryFlag}.png`}
+                      alt="countryflag"
+                      sx={{
+                        width: "20px",
+                        height: "20px",
+                        borderRadius: "50%",
+                      }}
+                    />
+                  </Stack>
                   <Typography
                     variant="body1"
                     fontWeight={500}
@@ -536,7 +543,17 @@ const UserDetails = () => {
                   </Typography>
                 </Stack>
 
-                <Box m={1.5}>Joined on 29 Oct, 2022</Box>
+                <Box m={1.5}>
+                  Joined on{" "}
+                  {(() => {
+                    const date = new Date(user?.createdAt);
+                    return date.toLocaleDateString("en-GB", {
+                      day: "2-digit",
+                      month: "short",
+                      year: "numeric",
+                    });
+                  })()}
+                </Box>
               </Box>
 
               <Stack mt={2} display={{ xs: "flex", md: "none" }}>

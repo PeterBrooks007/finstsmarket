@@ -352,7 +352,7 @@ const kycSetup = asyncHandler(async (req, res) => {
     // If the current photo exists, delete it from Cloudinary
     if (currentPhotoUrl) {
       const publicId = getPublicIdFromUrl(currentPhotoUrl);
-      cloudinary.uploader.destroy(publicId); // Delete the old image
+     await cloudinary.uploader.destroy(publicId); // Delete the old image
     }
 
     // Get the MIME type of the uploaded file
