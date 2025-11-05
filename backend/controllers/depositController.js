@@ -14,6 +14,9 @@ const Notifications = require("../models/notificationsModel");
 const {
   userGeneralEmailTemplate,
 } = require("../emailTemplates/userGeneralEmailTemplate");
+const {
+  depositEmailTemplate,
+} = require("../emailTemplates/depositEmailTemplate");
 
 //Deposit Fund
 const depositFund = asyncHandler(async (req, res) => {
@@ -367,13 +370,17 @@ const approveDepositRequest = asyncHandler(async (req, res) => {
 
   // Send email notification
   try {
-
     let introMessage;
-    if (req.body.status === "APPROVED" && req.body.comment === "ApproveWithBalance") {
+    if (
+      req.body.status === "APPROVED" &&
+      req.body.comment === "ApproveWithBalance"
+    ) {
       introMessage = `Your deposit request of ${amount} ${user.currency.code} with ${method} deposit method has been confirmed and amount credited to your account successfully. Please check your deposit history.`;
-
     }
-    if (req.body.status === "APPROVED" && req.body.comment === "ApproveWithoutBalance") {
+    if (
+      req.body.status === "APPROVED" &&
+      req.body.comment === "ApproveWithoutBalance"
+    ) {
       introMessage = `Your deposit request of ${amount} ${user.currency.code} with ${method} deposit method has been Confirmed. Please check your deposit history.`;
     }
 
@@ -381,13 +388,34 @@ const approveDepositRequest = asyncHandler(async (req, res) => {
       introMessage = `Your deposit request of ${amount} ${user.currency.code} with ${method} deposit method was NOT APPROVED. Please check your deposit history.`;
     }
 
-    
-    const subject = "Deposit Approval Status - corexcapital";
+    const subject = "Deposit Status - corexcapital";
     const send_to = user.email;
-    const template = userGeneralEmailTemplate(
-      `${user.firstname} ${user.lastname}`,
-      introMessage
-    );
+
+    const amount = Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: user.currency.code,
+      ...(amount > 9999999 ? { notation: "compact" } : {}),
+    }).format(amount);
+
+    const dashboardLink = "corexcapital.net/auth/login";
+
+    let template;
+
+    if (req.body.status === "APPROVED") {
+      template = depositEmailTemplate(
+        `${user.firstname} ${user.lastname}`,
+        `${amount}`,
+        `${method}`,
+        `${updatedDepositRequest._id}`,
+        `${dashboardLink}`
+      );
+    } else {
+      template = userGeneralEmailTemplate(
+        `${user.firstname} ${user.lastname}`,
+        introMessage
+      );
+    }
+
     const reply_to = process.env.EMAIL_USER;
 
     await sendEmail(subject, send_to, template, reply_to);
