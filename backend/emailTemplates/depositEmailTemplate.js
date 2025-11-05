@@ -3,11 +3,10 @@ const depositEmailTemplate = (name, amount, method, txid, dashboardLink) => {
     body: {
       greeting: false,
 
-      // name,
-      intro: [
-        `**${name},**`,
-        `You have successfully deposited **${amount}** to your account.`,
-      ],
+      intro: `
+        <p><strong>${name}</strong></p>
+        <p>You have successfully deposited <strong>${amount}</strong> to your account.</p>
+      `,
       table: {
         data: [
           {
@@ -25,7 +24,7 @@ const depositEmailTemplate = (name, amount, method, txid, dashboardLink) => {
           link: dashboardLink,
         },
       },
-      outro: `Don't recognize this activity? Reset your password immediately and contact support.`,
+      outro: "Don't recognize this activity? Reset your password immediately and contact support.",
       signature: "Best Regards",
     },
   };
