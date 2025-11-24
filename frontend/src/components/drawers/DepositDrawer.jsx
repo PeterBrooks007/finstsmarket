@@ -178,14 +178,14 @@ const DepositDrawer = ({
       return toast.error("Please enter a valid deposit amount.");
     }
 
-    if (amount < 1000) {
-      return toast.error(
-        `Minimum deposit of ${Intl.NumberFormat("en-US", {
-          style: "currency",
-          currency: user?.currency?.code,
-        }).format(1000)}`
-      );
-    }
+    // if (amount < 1000) {
+    //   return toast.error(
+    //     `Minimum deposit of ${Intl.NumberFormat("en-US", {
+    //       style: "currency",
+    //       currency: user?.currency?.code,
+    //     }).format(1000)}`
+    //   );
+    // }
 
     // Retrieve existing session data from localStorage
     const savedSession = localStorage.getItem("depositSession");
@@ -251,9 +251,9 @@ const DepositDrawer = ({
 
   const handleMakeRequest = async (e) => {
     e.preventDefault();
-    if (amount < 1000) {
-      return toast.error("Minimum deposit of $1,000");
-    }
+    // if (amount < 1000) {
+    //   return toast.error("Minimum deposit of $1,000");
+    // }
 
     const userData = {
       amount,
