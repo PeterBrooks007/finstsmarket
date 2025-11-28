@@ -208,7 +208,7 @@ export default function AllDepositRequestTable() {
           ) : (
             <StyledTableHead>
               <TableRow>
-                <TableCell>Trading Bots</TableCell>
+                <TableCell>Deposit Request</TableCell>
               </TableRow>
             </StyledTableHead>
           )}

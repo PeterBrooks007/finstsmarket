@@ -208,7 +208,7 @@ export default function AllWithdrawalRequestTable() {
           ) : (
             <StyledTableHead>
               <TableRow>
-                <TableCell>Trading Bots</TableCell>
+                <TableCell>Withdrawal Request</TableCell>
               </TableRow>
             </StyledTableHead>
           )}
