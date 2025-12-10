@@ -1,9 +1,9 @@
 import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
 import "./GetStartedSlider.css";
-import { Box, Button, Stack, Typography, useTheme, Link, useMediaQuery } from "@mui/material";
+import { Box, Button, Stack, Typography, useTheme, Link } from "@mui/material";
 import { tokens } from "../../theme";
-import slider1Image from "../../assets/mockup_images/3126834-cover.png";
+import slider1Image from "../../assets/mockup_images/iPhone_Mockup_doubleWhite.png";
 import slider2Image from "../../assets/mockup_images/device-mobile-branch-wallet.png";
 import slider3Image from "../../assets/mockup_images/customer-2.png";
 
@@ -23,8 +23,6 @@ import HomeHeader from "../../pages/home/HomeHeader";
 const GiftSlider = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-    const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  
 
   const size = UseWindowSize();
 
@@ -69,7 +67,11 @@ const GiftSlider = () => {
         <HomeHeader />
       </Box>
 
-      <div className="embla__viewport" ref={emblaRef} style={{height: size.height - 80, overflow: "auto" }}>
+      <div
+        className="embla__viewport"
+        ref={emblaRef}
+        style={{ height: size.height - 80, overflow: "auto" }}
+      >
         <div className="embla__container">
           {/* first slide */}
           <div
@@ -104,16 +106,16 @@ const GiftSlider = () => {
                   <img
                     src={slider1Image}
                     alt="happyclient"
-                    width={isMobile ? "80%" : "100%"}
+                    width={"80%"}
                     // style={{ marginTop: 4 }}
                   />
                 </Stack>
 
                 <Stack spacing={1}>
-                  <Typography variant={isMobile ?"h5" : "h3"} textAlign={"left"} fontWeight={"bold"}>
+                  <Typography variant="h5" textAlign={"left"}>
                     Trade Like a Pro
                   </Typography>
-                  <Typography variant={isMobile ? "body1" : "h6"} textAlign={"left"}>
+                  <Typography variant="body2" textAlign={"left"}>
                     Welcome to your all-in-one trading hub for Forex, Stocks,
                     and Cryptocurrency. Our platform is built for traders of all
                     levels, offering advanced tools, real-time data, and
@@ -166,14 +168,14 @@ const GiftSlider = () => {
                   alignItems={"center"}
                   spacing={2}
                 >
-                  <img src={slider3Image} alt="happyclient" width={isMobile ? "80%" : "70%"} />
+                  <img src={slider3Image} alt="happyclient" width={"80%"} />
                 </Stack>
 
                 <Stack spacing={1}>
-                  <Typography variant={isMobile ?"h6" : "h3"} textAlign={"left"} fontWeight={"bold"}>
+                  <Typography variant="h5" textAlign={"left"}>
                     Build Wealth With Our Platform.
                   </Typography>
-                  <Typography variant={isMobile ? "body1" : "h6"} textAlign={"left"}>
+                  <Typography variant="body2" textAlign={"left"}>
                     Invest in the World’s Top Companies Seize opportunities in
                     the stock market by trading shares of industry-leading
                     corporations. With our intuitive platform, you can easily
@@ -229,21 +231,20 @@ const GiftSlider = () => {
                   <img
                     src={slider2Image}
                     alt="happyclient"
-                    width={isMobile ? "80%" : "100%"}
+                    width={"80%"}
                     style={{ marginTop: "30px" }}
                   />
                 </Stack>
 
                 <Stack spacing={1}>
                   <Typography
-                    variant={size.width > 370 ? isMobile ? "h5" : "h3" : "h6"}
+                    variant={size.width > 370 ? "h5" : "h6"}
                     textAlign={"left"}
-                    fontWeight={"bold"}
                   >
                     Ride the Crypto Wave
                   </Typography>
                   <Typography
-                    variant={size.width > 370 ? isMobile ? "body2" : "h6" : "caption"}
+                    variant={size.width > 370 ? "body2" : "caption"}
                     textAlign={"left"}
                   >
                     Dive into the dynamic world of cryptocurrencies and trade

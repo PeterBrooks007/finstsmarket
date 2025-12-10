@@ -69,15 +69,6 @@ const HomeHeader = () => {
           </IconButton>
         </Box>
 
-        <Link component={RouterLink} to="/" sx={{ textDecoration: "none" }}>
-          <Typography
-            variant="h5"
-            fontWeight={"700"}
-            sx={{ display: { xs: "none", sm: "flex", color: "white" } }}
-          >
-            Core
-          </Typography>
-        </Link>
          <Link component={RouterLink} to="/">
           <img
             src={LogoImg}
@@ -92,7 +83,7 @@ const HomeHeader = () => {
             fontWeight={"700"}
             sx={{ display: { xs: "none", sm: "flex", color: "white" } }}
           >
-          Capital
+          FinstsMarket
           </Typography>
         </Link>
       </Box>

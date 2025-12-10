@@ -105,17 +105,6 @@ const HomeMobile = () => {
             justifyContent={"center"}
             width={"100%"}
           >
-            <MotionTypography
-              variant={isMobile ? "h4" : "h1"}
-              sx={{ textShadow: "1px 0px 8px black" }}
-              textAlign={isMobile ? "center" : "left"}
-              variants={FADE_DOWN_ANIMATION_VARIANTS}
-              color={"white"}
-              fontWeight={900}
-              fontSize={isMobile ? "30px" : "60px"}
-            >
-              Core
-            </MotionTypography>
             <Box>
               <img src={logo} alt="logo" width={isMobile ? "60px" : "120px"} />
             </Box>
@@ -128,7 +117,7 @@ const HomeMobile = () => {
               fontWeight={900}
               fontSize={isMobile ? "30px" : "60px"}
             >
-              Capital
+              FinstsMarket
             </MotionTypography>
           </Stack>
 
@@ -141,7 +130,7 @@ const HomeMobile = () => {
             fontWeight={900}
           >
             CHALLENGE THE MARKET WITH{" "}
-            <span style={{ color: "gold" }}> COREXCAPITAL WEB APP </span>
+            <span style={{ color: "gold" }}> FINSTSMARKET WEB APP </span>
           </MotionTypography>
 
           <MotionTypography
@@ -154,7 +143,7 @@ const HomeMobile = () => {
               color: "white",
             }}
           >
-            Join over 26 million users who have already chosen the CoreXCapital
+            Join over 26 million users who have already chosen the FinstsMarket
             web app for trading.
           </MotionTypography>
 

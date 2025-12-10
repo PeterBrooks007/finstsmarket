@@ -62,12 +62,10 @@ const AuthMobileHeader = ({ writeUp, buttonText, link, accountSetup }) => {
             navigate("/");
           }}
         >
-          <Typography variant="h6" fontWeight={"600"}>
-            Core
-          </Typography>
+         
           <img src={LogoImg} alt="logo" width={40} />
           <Typography variant="h6" fontWeight={"600"}>
-            Capital
+            FinstsMarket
           </Typography>
         </Stack>
         <Stack

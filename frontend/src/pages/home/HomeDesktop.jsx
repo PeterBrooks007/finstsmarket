@@ -122,7 +122,7 @@ const Homedesktop = () => {
               textAlign={isMobile ? "center" : "left"}
               variants={FADE_DOWN_ANIMATION_VARIANTS}
             >
-              CHALLENGE THE MARKET WITH CoreXCapital WEB APP
+              CHALLENGE THE MARKET WITH FINSTSMARKET APP
             </MotionTypography>
 
             <MotionTypography

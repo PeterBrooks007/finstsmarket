@@ -69,12 +69,10 @@ const AuthHeader = () => {
               navigate("/");
             }}
           >
-            <Typography variant="h5" color={"white"} fontWeight={"700"}>
-              Core
-            </Typography>
+           
             <img src={LogoImg} alt="logo" width={40} />
             <Typography variant="h5" color={"white"} fontWeight={"700"}>
-              Capital
+              FinstsMarket
             </Typography>
           </Stack>
 

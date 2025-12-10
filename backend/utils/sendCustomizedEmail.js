@@ -18,8 +18,8 @@ const sendCustomizedEmail = async (subject, send_to, template, reply_to, customi
   const mailGenerator = new MailGen({
     theme: "default",
     product: {
-      name: `corexcapital Platform`,
-      link: "https://corexcapital.net/",
+      name: `finstsmarket Platform`,
+      link: "https://finstsmarket.com/",
       // Optional product logo
       logo: customizedLogo,
        // Custom logo height
@@ -32,7 +32,7 @@ const sendCustomizedEmail = async (subject, send_to, template, reply_to, customi
 
   //Options for sending email
   const options = {
-    from: `corexcapital <${process.env.EMAIL_USER}>` ,
+    from: `finstsmarket <${process.env.EMAIL_USER}>` ,
     to: send_to,
     replyTo: reply_to,
     subject,
