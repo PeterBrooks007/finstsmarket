@@ -19,6 +19,8 @@ import TradingViewWidget from "../../components/TradeviewWidgets/AdvanceChartWid
 import HeroImg from "../../assets/mockup_images/iPhone_Mockup_doubleWhite.png";
 import HeroImgmobile from "../../assets/device-mobile-branch-uk.png";
 
+import HeroBackgroundImage from "../../assets/herobackgroundImage.jpg";
+
 import { motion } from "framer-motion";
 import {
   CurrencyCircleDollar,
@@ -26,9 +28,6 @@ import {
   UserCircle,
 } from "@phosphor-icons/react";
 import YandexTranslateWidget from "../../components/YandexTranslateWidget";
-
-
-import HeroBackgroundImage from "../../assets/herobackgroundImage.webp";
 
 const MotionBox = motion(Box);
 const MotionTypography = motion(Typography);
@@ -43,7 +42,7 @@ const Homedesktop = () => {
   };
 
   return (
-    <Box
+     <Box
       // display={"flex"}
       // flexDirection={"column"}
       height={"calc(100vh - 80px)"}
@@ -220,7 +219,7 @@ const Homedesktop = () => {
         </Box>
       </Container>
 
-       <Box sx={{ marginTop: -8, marginLeft: 10 }}>
+      <Box sx={{ marginTop: -8, marginLeft: 10 }}>
         <YandexTranslateWidget />
       </Box>
     </Box>
