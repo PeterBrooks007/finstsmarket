@@ -53,7 +53,7 @@ export default function TradeSection({
   return (
     <Box sx={{ width: "100%" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }} display={isQuickTrade && "none"}>
-        <Tabs
+        {/* <Tabs
           value={value}
           onChange={handleChange}
           aria-label="basic tabs example"
@@ -63,7 +63,7 @@ export default function TradeSection({
           <Tab label="Market" {...a11yProps(0)} />
           <Tab label="Limit" {...a11yProps(1)} />
           <Tab label="Stop" {...a11yProps(2)} />
-        </Tabs>
+        </Tabs> */}
       </Box>
       <CustomTabPanel value={value} index={0}>
         <LimitStopTrade

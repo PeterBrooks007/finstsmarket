@@ -7,6 +7,7 @@ import {
   IconButton,
   Menu,
   MenuItem,
+  OutlinedInput,
   Stack,
   TextField,
   Typography,
@@ -31,7 +32,7 @@ const Trading = ({ handleClose, drawer }) => {
   const theme = useTheme();
   const dispatch = useDispatch();
   const { isLoading, exchange, allExchanges } = useSelector(
-    (state) => state.tradingSettings
+    (state) => state.tradingSettings,
   );
 
   const { tradingMode } = useSelector((state) => state.app);
@@ -39,6 +40,8 @@ const Trading = ({ handleClose, drawer }) => {
   const [selectedExchange, setSelectedExchange] = useState(null);
 
   const [selectedSymbol, setSelectedSymbol] = useState(null);
+
+  console.log(selectedSymbol)
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -58,10 +61,10 @@ const Trading = ({ handleClose, drawer }) => {
     }
   }, [dispatch]);
 
-  useEffect(() => {
-    // Clear selected value when exchange changes
-    setSelectedSymbol(null);
-  }, [exchange?.tradingPairs]);
+  // useEffect(() => {
+  //   // Clear selected value when exchange changes
+  //   setSelectedSymbol(null);
+  // }, [exchange?.tradingPairs]);
 
   // TradeHistoryDrawer
   const [openTradeHistoryDrawer, setTradeHistoryDrawer] = useState(false);
@@ -248,7 +251,17 @@ const Trading = ({ handleClose, drawer }) => {
               )}
             />
 
-            <Autocomplete
+            <OutlinedInput
+              name="price"
+              value={selectedSymbol}
+              // onBlur={handleBlur}
+              onChange={(e) => setSelectedSymbol(e.target.value)}
+              size="small"
+              placeholder="Enter Symbol "
+              sx={{ borderRadius: "15px", width: "100%" }}
+            />
+
+            {/* <Autocomplete
               size="small"
               disablePortal
               id="combo-box-demo"
@@ -278,7 +291,7 @@ const Trading = ({ handleClose, drawer }) => {
                   }}
                 />
               )}
-            />
+            /> */}
           </Stack>
 
           <Box
@@ -296,7 +309,9 @@ const Trading = ({ handleClose, drawer }) => {
               color={"white"}
             >
               <Typography fontWeight={"500"}>Sell</Typography>
-              <Typography fontWeight={"500"}>{selectedSymbol || "None"}</Typography>
+              <Typography fontWeight={"500"}>
+                {selectedSymbol || "None"}
+              </Typography>
             </Box>
             <Box
               flex={"50%"}
@@ -309,7 +324,9 @@ const Trading = ({ handleClose, drawer }) => {
             >
               <Stack alignItems={"end"}>
                 <Typography fontWeight={"500"}>Buy</Typography>
-                <Typography fontWeight={"500"}>{selectedSymbol || "None"}</Typography>
+                <Typography fontWeight={"500"}>
+                  {selectedSymbol || "None"}
+                </Typography>
               </Stack>
             </Box>
           </Box>

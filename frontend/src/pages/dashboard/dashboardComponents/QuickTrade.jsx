@@ -8,6 +8,7 @@ import {
   InputAdornment,
   InputLabel,
   MenuItem,
+  OutlinedInput,
   Select,
   Stack,
   TextField,
@@ -33,7 +34,7 @@ const QuickTrade = () => {
 
   const dispatch = useDispatch();
   const { isLoading, exchange, allExchanges } = useSelector(
-    (state) => state.tradingSettings
+    (state) => state.tradingSettings,
   );
 
   const { user } = useSelector((state) => state.auth);
@@ -48,10 +49,10 @@ const QuickTrade = () => {
     }
   }, [dispatch]);
 
-  useEffect(() => {
-    // Clear selected value when exchange changes
-    setSelectedSymbol(null);
-  }, [exchange?.tradingPairs]);
+  // useEffect(() => {
+  //   // Clear selected value when exchange changes
+  //   setSelectedSymbol(null);
+  // }, [exchange?.tradingPairs]);
 
   // TradeHistoryDrawer
   const [openTradeHistoryDrawer, setTradeHistoryDrawer] = useState(false);
@@ -108,10 +109,7 @@ const QuickTrade = () => {
 
               <Stack alignItems={"flex-start"}>
                 <Typography>Balance</Typography>
-                <Typography
-                  variant="body1"
-                 
-                >
+                <Typography variant="body1">
                   {Intl.NumberFormat("en-US", {
                     style: "currency",
                     currency: user?.currency?.code,
@@ -177,7 +175,17 @@ const QuickTrade = () => {
                 )}
               />
 
-              <Autocomplete
+              <OutlinedInput
+                name="price"
+                value={selectedSymbol}
+                // onBlur={handleBlur}
+                onChange={(e) => setSelectedSymbol(e.target.value)}
+                size="small"
+                placeholder="Enter Symbol "
+                sx={{ borderRadius: "15px", width: "100%" }}
+              />
+
+              {/* <Autocomplete
                 size="small"
                 disablePortal
                 id="combo-box-demo"
@@ -207,7 +215,7 @@ const QuickTrade = () => {
                     }}
                   />
                 )}
-              />
+              /> */}
             </Stack>
 
             <Box
@@ -224,7 +232,9 @@ const QuickTrade = () => {
                 color={"white"}
               >
                 <Typography fontWeight={"500"}>Sell</Typography>
-                <Typography fontWeight={"500"}>{selectedSymbol || "None"}</Typography>
+                <Typography fontWeight={"500"}>
+                  {selectedSymbol || "None"}
+                </Typography>
               </Box>
               <Box
                 flex={"50%"}
@@ -237,7 +247,9 @@ const QuickTrade = () => {
               >
                 <Stack alignItems={"end"}>
                   <Typography fontWeight={"500"}>Buy</Typography>
-                  <Typography fontWeight={"500"}>{selectedSymbol || "None"}</Typography>
+                  <Typography fontWeight={"500"}>
+                    {selectedSymbol || "None"}
+                  </Typography>
                 </Stack>
               </Box>
             </Box>
