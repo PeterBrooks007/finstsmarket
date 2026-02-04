@@ -343,12 +343,12 @@ const Trades = () => {
                         ...(tradingMode.toLowerCase() === "live"
                           ? user?.balance
                           : user?.demoBalance > 999999
-                          ? { notation: "compact" }
-                          : {}),
+                            ? { notation: "compact" }
+                            : {}),
                       }).format(
                         tradingMode.toLowerCase() === "live"
                           ? user?.balance
-                          : user?.demoBalance
+                          : user?.demoBalance,
                       )}
                     </Typography>
                   </Stack>
@@ -667,12 +667,12 @@ const Trades = () => {
                       ...(tradingMode.toLowerCase() === "live"
                         ? user?.balance
                         : user?.demoBalance > 999999
-                        ? { notation: "compact" }
-                        : {}),
+                          ? { notation: "compact" }
+                          : {}),
                     }).format(
                       tradingMode.toLowerCase() === "live"
                         ? user?.balance
-                        : user?.demoBalance
+                        : user?.demoBalance,
                     )}
                   </Typography>
                 </Stack>
@@ -867,7 +867,7 @@ const Trades = () => {
                     <TableHead>
                       <TableRow>
                         <TableCell align="left">SYMBOLS</TableCell>
-                        <TableCell align="center">PRICE</TableCell>
+                        <TableCell align="center">QTY</TableCell>
                         <TableCell align="center" colSpan={2}>
                           DATE
                         </TableCell>
@@ -900,7 +900,7 @@ const Trades = () => {
                                 {trade?.symbols}
                               </TableCell>
                               <TableCell align="center">
-                                {trade?.price}
+                                {trade?.units}
                               </TableCell>
                               <TableCell align="center">
                                 {trade?.createdAt &&
@@ -943,13 +943,13 @@ const Trades = () => {
       )}
 
       {/* {openTradeHistoryDrawer && ( */}
-        <TradeHistoryDrawer
-          open={openTradeHistoryDrawer}
-          handleClose={handleCloseTradeHistoryDrawer}
-          handleOpen={handleOpenTradeHistoryDrawer}
-          tradeHistoryDrawerLoader={tradeHistoryDrawerLoader}
-          setTradeHistoryDrawerLoader={setTradeHistoryDrawerLoader}
-        />
+      <TradeHistoryDrawer
+        open={openTradeHistoryDrawer}
+        handleClose={handleCloseTradeHistoryDrawer}
+        handleOpen={handleOpenTradeHistoryDrawer}
+        tradeHistoryDrawerLoader={tradeHistoryDrawerLoader}
+        setTradeHistoryDrawerLoader={setTradeHistoryDrawerLoader}
+      />
       {/* )} */}
 
       <AllNotificationsDrawer

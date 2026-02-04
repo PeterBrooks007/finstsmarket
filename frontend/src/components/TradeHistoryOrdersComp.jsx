@@ -667,10 +667,10 @@ const TradeHistoryOrdersComp = ({ allTradeFiltered }) => {
                     <Typography variant="subtitle2">Type</Typography>
                     <Typography variant="subtitle2">{trades?.type}</Typography>
                   </Stack>
-                  <Stack justifyContent={"space-between"} direction={"row"}>
+                  {/* <Stack justifyContent={"space-between"} direction={"row"}>
                     <Typography variant="subtitle2">Price</Typography>
                     <Typography variant="subtitle2">{trades?.price}</Typography>
-                  </Stack>
+                  </Stack> */}
                   <Stack justifyContent={"space-between"} direction={"row"}>
                     <Typography variant="subtitle2">Qty</Typography>
                     <Typography variant="subtitle2">{trades?.units}</Typography>

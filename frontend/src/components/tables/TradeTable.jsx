@@ -194,7 +194,7 @@ export default function StickyHeadTable({ allTradeFiltered }) {
                   <TableCell>Symbols</TableCell>
                   <TableCell>Side</TableCell>
                   <TableCell>Type</TableCell>
-                  <TableCell>Price</TableCell>
+                  {/* <TableCell>Price</TableCell> */}
                   <TableCell>Qty</TableCell>
                   <TableCell>Amount</TableCell>
                   <TableCell>Status</TableCell>
@@ -241,7 +241,7 @@ export default function StickyHeadTable({ allTradeFiltered }) {
                         </span>
                       </TableCell>
                       <TableCell>{trade?.type}</TableCell>
-                      <TableCell>{trade?.price}</TableCell>
+                      {/* <TableCell>{trade?.price}</TableCell> */}
                       <TableCell>{trade?.units}</TableCell>
                       <TableCell>
                         <Typography

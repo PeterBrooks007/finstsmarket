@@ -97,7 +97,7 @@ const LimitStopTrade = ({
   // end of stop loss checkbox
 
   const initialState = {
-    price: "",
+    price: 1,
     ticks: type !== "LMT" && type !== "STP" ? "none" : "",
     units: "",
     risk: "0",
@@ -281,7 +281,7 @@ const LimitStopTrade = ({
               <form onSubmit={handleSubmit}>
                 <Stack spacing={1} mt={1}>
                   <Stack direction={"row"}>
-                    <Stack spacing={0.5} width={"100%"}>
+                    {/* <Stack spacing={0.5} width={"100%"}>
                       <InputLabel htmlFor="my-input">Price</InputLabel>
                       <OutlinedInput
                         name="price"
@@ -304,7 +304,7 @@ const LimitStopTrade = ({
                           {errors.price}
                         </FormHelperText>
                       )}
-                    </Stack>
+                    </Stack> */}
                     <Stack
                       spacing={0.5}
                       width={"100%"}
