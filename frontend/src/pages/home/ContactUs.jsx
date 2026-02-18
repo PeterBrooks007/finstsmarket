@@ -285,7 +285,8 @@ const ContactUs = () => {
               <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
                 <Envelope size={22} />
                 <Typography variant="body1" sx={{ ml: 2 }}>
-                  support@finstsmarket.com
+                  support@finstsmarket.com <br />
+                  info@finstsmarket.com
                 </Typography>
               </Box>
               <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
