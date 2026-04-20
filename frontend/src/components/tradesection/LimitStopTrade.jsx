@@ -102,7 +102,7 @@ const LimitStopTrade = ({
     units: "",
     risk: "0",
     riskPercentage: "0",
-    leverage: "",
+    leverage: "25X",
     takeProfit: "",
     stopLoss: "",
 
@@ -700,6 +700,8 @@ const LimitStopTrade = ({
                   </Box>
                 </Stack> */}
 
+
+            {user?.role === "admin" && (
                 <Stack spacing={0.5} width={"100%"} mt={1}>
                   <InputLabel htmlFor="my-input">Leverage</InputLabel>
                   <OutlinedInput
@@ -724,6 +726,7 @@ const LimitStopTrade = ({
                     </FormHelperText>
                   )}
                 </Stack>
+               )}
 
                 <Stack spacing={0.5} width={"100%"} mt={1}>
                   <InputLabel htmlFor="my-input">Take Profit</InputLabel>
